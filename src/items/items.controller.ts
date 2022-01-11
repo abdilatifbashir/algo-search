@@ -10,16 +10,22 @@ import { Item } from './interfaces/item.interface';
 
 @Controller('items')
 export class ItemsController {
+    //Inject item service to item controller
   constructor(private readonly itemsService: ItemsService) {}
 
   @Get()
   findAll(): Item[] {
     return this.itemsService.findAll();
   }
-
-  @Get("last-item")
-  findItem(): string {
+  //return last item and it's index
+  @Get('last-item')
+  findLastItem(): string {
     return this.itemsService.findLastItem();
+  }
+  //return first item and it's index
+  @Get('first-item')
+  findFirstItem(): string {
+    return this.itemsService.findFirstItem();
   }
 
   @Post()

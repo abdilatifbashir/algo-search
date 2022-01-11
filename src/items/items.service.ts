@@ -1,12 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { Item } from './interfaces/item.interface';
-import { Model } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
-
 @Injectable()
 export class ItemsService {
   // a list where algo applies.
-  //Finding last element in the list if element exist,
+  //Dummy list
   private readonly items: Item[] = [
     {
       id: '333333',
@@ -35,18 +32,33 @@ export class ItemsService {
     return this.items;
   }
 
-  findLastItem():any{
-   if(this.items[this.items.length-1]){
-     const item = this.items[this.items.length - 1];
+  // This service iterate through list and returns last element and its index if list has data
+  findLastItem(): any {
+    if (this.items[this.items.length - 1]) {
+      const item = this.items[this.items.length - 1];
       return {
         itemIndex: `${this.items.length - 1}`,
         searchedItem: item,
       };
-   }
-   
+    }
+
+    if (!this.items[this.items.length - 1]) {
+      return new BadRequestException('item does not exits,list is empty');
+    }
   }
-
-
+  // This service iterate through list and returns first element and its index if list has data
+  findFirstItem(): any {
+    if (this.items[0]) {
+      const item = this.items[0];
+      return {
+        itemIndex: 0,
+        searchedItem: item,
+      };
+    }
+    if (!this.items[0]) {
+      return new BadRequestException('item does not exits,list is empty');
+    }
+  }
 
   create(item: Item): Item[] {
     return [...this.items, item];
