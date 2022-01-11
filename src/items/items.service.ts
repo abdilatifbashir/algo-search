@@ -32,7 +32,7 @@ export class ItemsService {
     return this.items;
   }
 
-  // This service iterate through list and returns last element and its index if list has data
+  // This service returns last element and its index if list has data
   findLastItem(): any {
     if (this.items[this.items.length - 1]) {
       const item = this.items[this.items.length - 1];
@@ -46,7 +46,7 @@ export class ItemsService {
       return new BadRequestException('item does not exits,list is empty');
     }
   }
-  // This service iterate through list and returns first element and its index if list has data
+  // This service returns first element and its index if list has data
   findFirstItem(): any {
     if (this.items[0]) {
       const item = this.items[0];
